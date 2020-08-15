@@ -1,5 +1,7 @@
 from app import api
 
+#login route
+login_route  = api.namespace('login', description='User Authentication')
 # users route
 users_route  = api.namespace('users', description='User CRUD')
 # posts route

@@ -2,7 +2,7 @@ from   app                        import db
 
 class Player(db.Model):
     __tablename__     = "players"
-    id                = db.Column(db.Integer, primary_key=True)
+    id                = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name              = db.Column(db.String(100))
     picture           = db.Column(db.String(300))
     feature           = db.Column(db.TEXT(1000))

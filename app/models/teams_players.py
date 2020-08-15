@@ -2,7 +2,7 @@ from app             import db
 
 class TeamsPlayers(db.Model):
     __tablename__     = "teams_players"
-    id                = db.Column(db.Integer, primary_key=True)
+    id                = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_begin        = db.Column(db.DateTime)
     date_end          = db.Column(db.DateTime, nullable=True)
     player_number     = db.Column(db.Integer)

@@ -8,13 +8,20 @@ model_posts = api.model('Posts', {
 })
 
 # Users
+
+model_login = api.model('Login',{
+    'username' : fields.String(required=True),
+    'password' : fields.String(required=True),
+    'email'    : fields.String(required=True),
+})
+
 model_user = api.model('User',{
     'id'       : fields.Integer,
     'username' : fields.String,
     'name'     : fields.String,
     'password' : fields.String,
     'email'    : fields.String,
-    'posts'    : fields.List(fields.Nested(model_posts)),
+    'posts'    : fields.List(fields.Nested(model_posts),default=[]),
 })
 
 # players

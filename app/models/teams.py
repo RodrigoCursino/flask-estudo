@@ -2,7 +2,7 @@ from app             import db
 
 class Team(db.Model):
     __tablename__ = "teams"
-    id                = db.Column(db.Integer, primary_key=True)
+    id                = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name              = db.Column(db.String(100))
     brand             = db.Column(db.String(300))
     uniform_one       = db.Column(db.String(300))
