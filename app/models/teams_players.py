@@ -10,7 +10,7 @@ class TeamsPlayers(db.Model):
     team_id           = db.Column(db.Integer, db.ForeignKey('teams.id'), primary_key=True)
     team              = db.relationship('Team', foreign_keys=team_id)
     player            = db.relationship('Player', foreign_keys=player_id)
-    activate          = db.Column(db.Boolean, unique=False, default=True)
+    activate          = db.Column(db.Boolean, default=True)
 
     def __init__(self, date_begin, date_end, player_number, team_id, player_id):
         self.date_begin    = date_begin   
@@ -21,3 +21,7 @@ class TeamsPlayers(db.Model):
          
     def __repr__(self):
         return "<TeamsPlayers %r>" % self.date_begin
+    
+    # @property
+    # def player(self):
+    #     return self.player

@@ -30,27 +30,28 @@ class Auth():
             return e
             
     @staticmethod
-    def decode_auth_token(auth_token):
+    def decode_auth_token(request):
         """
         Decodes um auth token
-        :param request:
+        :param: request:
         :return: string|boolean
         """
         try:
-            # auth_token  = ""
-            # auth_header = request.headers.get('Authorization')
+            auth_token  = ""
+            auth_header = request.headers.get('Authorization')
             
-            # if auth_header:
-            #     auth_token = auth_header.split(" ")[1]
+            if auth_header:
+                auth_token = auth_header.split(" ")[1]
 
-            payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
-            
+            payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))            
             return Auth.__verify_user(payload)
         
         except jwt.ExpiredSignatureError:
-            return 'Signature expired. Please log in again.'
+            print('Signature expired. Please log in again.')
+            return False
         except jwt.InvalidTokenError:
-            return 'Invalid token. Please log in again.'
+            print('Invalid token. Please log in again.')
+            return False
 
 
     def __verify_user(payload):

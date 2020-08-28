@@ -1,8 +1,9 @@
-from app.models.teams   import Team
-from app.serialization  import model_team
-from flask_restplus     import Resource
-from app.routes         import teams_route
-from sqlalchemy.orm     import joinedload
+from app.models.teams            import Team
+from app.services.teams_service  import TeamService
+from app.serialization           import model_team
+from flask_restplus              import Resource
+from app.routes                  import teams_route
+from sqlalchemy.orm              import joinedload
 
 @teams_route.route('/')
 @teams_route.route('/<int:id>')
@@ -10,6 +11,7 @@ from sqlalchemy.orm     import joinedload
 @teams_route.response(500, 'Team error')
 @teams_route.param('id', 'The task identifier')
 class TeamController(Resource):
+    
     @teams_route.marshal_with(model_team)
     def get(self, id=None):
         if id == None:
@@ -17,8 +19,9 @@ class TeamController(Resource):
         
         return Team.query.filter_by(id=id).first(), 200
     
+    @teams_route.expect(model_team)
     def post(self):
-        return {'Hello World': 'Hello World'}
+        return TeamService.create(teams_route.payload)
 
 teams_route.add_resource(TeamController, '/', methods=['POST'])
 teams_route.add_resource(TeamController, '/<id>', methods=['GET', 'PUT', 'DELETE'])

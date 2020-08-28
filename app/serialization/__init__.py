@@ -26,12 +26,35 @@ model_user = api.model('User',{
 
 # players
 model_player = api.model('Player',{
-    'id'          : fields.Integer,
-    'name'        : fields.String,           
-    'picture'     : fields.String,         
-    'feature'     : fields.String,         
-    'default_leg' : fields.String,    
-    'birth_date'  : fields.DateTime,       
+    'id'            : fields.Integer,
+    'team_id'       : fields.Integer,
+    'name'          : fields.String, 
+    'country'       : fields.String, 
+    'position'      : fields.String, 
+    'player_number' : fields.String, 
+    'height'        : fields.Float, 
+    'weight'        : fields.Integer,          
+    'picture'       : fields.String,         
+    'feature'       : fields.String,         
+    'default_leg'   : fields.String,    
+    'birth_date'    : fields.DateTime,       
+    'date_begin'    : fields.DateTime,       
+    'date_end'      : fields.DateTime,       
+})
+
+model_player_list = api.model('Player',{
+    'id'            : fields.Integer,
+    'name'          : fields.String, 
+    'country'       : fields.String, 
+    'position'      : fields.String, 
+    'height'        : fields.Float, 
+    'weight'        : fields.Integer,          
+    'picture'       : fields.String,         
+    'feature'       : fields.String,         
+    'default_leg'   : fields.String,    
+    'birth_date'    : fields.DateTime,       
+    'date_begin'    : fields.DateTime,       
+    'date_end'      : fields.DateTime,        
 })
 
 # teams 
@@ -39,17 +62,22 @@ model_team = api.model('Team',{
    'id'                : fields.Integer,
    'name'              : fields.String,
    'brand'             : fields.String,
-   'uniform_one'       : fields.String,
-   'uniform_two'       : fields.String,
-   'foundation_date'   : fields.DateTime, 
+   'color'             : fields.String,
+   'country'           : fields.String,
+   'alternateColor'    : fields.String,
+   'abbreviation'      : fields.String,
+   'uniform_one'       : fields.String(default=None),
+   'uniform_two'       : fields.String(default=None),
+   'foundation_date'   : fields.DateTime(default=None),
+#    'players'           : fields.List(fields.Nested(model_player),default=[]),   
 })
 
 # teams 
 model_teams_players = api.model('TeamsPlayers',{
-   'id'            : fields.Integer,
    'date_begin'    : fields.DateTime,
    'date_end'      : fields.DateTime,  
    'player_number' : fields.String,          
-   'team'          : fields.List(fields.Nested(model_team)),  
-   'player'        : fields.List(fields.Nested(model_player)),     
+   'team'          : fields.Nested(model_team),  
+   'player'        : fields.Nested(model_player_list),     
 })
+
